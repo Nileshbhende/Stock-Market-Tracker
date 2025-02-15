@@ -3,28 +3,20 @@ package com.stocktracker;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 import java.io.IOException;
-import java.util.Scanner;
+import java.math.BigDecimal;
 
 public class StockFetcher {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Stock Symbol (e.g., AAPL for Apple, TSLA for Tesla): ");
-        String symbol = scanner.nextLine().toUpperCase();
-
+    public static void fetchStockData(String stockSymbol) {
         try {
-            Stock stock = YahooFinance.get(symbol);
+            Stock stock = YahooFinance.get(stockSymbol);
             if (stock != null) {
-                System.out.println("Stock: " + stock.getName());
-                System.out.println("Current Price: $" + stock.getQuote().getPrice());
-                System.out.println("Day High: $" + stock.getQuote().getDayHigh());
-                System.out.println("Day Low: $" + stock.getQuote().getDayLow());
-                System.out.println("Previous Close: $" + stock.getQuote().getPreviousClose());
+                BigDecimal price = stock.getQuote().getPrice();
+                System.out.println("Yahoo Finance Stock Price of " + stockSymbol + ": ₹" + price);
             } else {
-                System.out.println("Stock not found!");
+                System.out.println("Yahoo Finance Stock data not found!");
             }
         } catch (IOException e) {
-            System.out.println("Error fetching stock data: " + e.getMessage());
+            System.out.println("Error fetching Yahoo Finance stock data: " + e.getMessage());
         }
-        scanner.close();
     }
 }
