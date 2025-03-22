@@ -1,5 +1,5 @@
 #!/bin/sh
-export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
+export JAVA_HOME=/opt/render/project/.render/java-17
 export PATH=$JAVA_HOME/bin:$PATH
 
 chmod +x mvnw
