@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stock Market Tracker</h1>
+    <input type="text" id="stockSymbol" placeholder="Enter Stock Symbol (e.g., TCS)">
+    <button onclick="getStockPrice()">Get Price</button>
+    <div id="result"></div>
+
+    <script>
+        function getStockPrice() {
+            let symbol = document.getElementById("stockSymbol").value;
+            fetch(`/stock?symbol=${symbol}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("result").innerHTML = `Stock Price of ${symbol}: ${data}`;
+                })
+                .catch(error => {
+                    document.getElementById("result").innerHTML = "Error fetching stock data.";
+                    console.error(error);
+                });
+        }
+    </script>
+</body>
+</html>
